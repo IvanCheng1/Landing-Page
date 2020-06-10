@@ -26,6 +26,22 @@ const navbar = document.querySelector('#navbar__list');
  * Start Helper Functions
  * 
  */
+
+function scrollToSection(section) {
+    window.scrollTo({
+        top: section.offsetTop,
+        left: section.offsetLeft,
+        behavior: 'smooth'
+    })
+}
+
+/**
+ * End Helper Functions
+ * Begin Main Functions
+ * 
+ */
+
+// build the nav
 function buildNavBar(sections) {
     for (const section of sections) {
         const li = document.createElement('li');
@@ -43,47 +59,29 @@ function buildNavBar(sections) {
     }
 }
 
-function scrollToSection(section) {
-    window.scrollTo({
-        top: section.offsetTop,
-        left: section.offsetLeft,
-        behavior: 'smooth'
-    })
-}
 
-// for (const section of nav_sections) {
-//     console.log(section.getAttribute('id'));
-// }
+
+
+// Add class 'active' to section when near top of viewport
+
+
+
+
+// Scroll to anchor ID using scrollTO event
+
 
 /**
- * End Helper Functions
- * Begin Main Functions
+ * End Main Functions
+ * Begin Events
  * 
  */
 
-// build the nav
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM loaded');
 
+    // Build menu 
     buildNavBar(nav_sections)
 
-
-
-    // Add class 'active' to section when near top of viewport
-
-
-
-
-    // Scroll to anchor ID using scrollTO event
-
-
-    /**
-     * End Main Functions
-     * Begin Events
-     * 
-     */
-
-    // Build menu 
 
     // Scroll to section on link click
     navbar.addEventListener('click', function(e) {
