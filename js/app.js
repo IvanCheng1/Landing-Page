@@ -42,6 +42,34 @@ function sectionInView(section) {
     );
 }
 
+function createBtn() {
+    const btn = document.createElement('a');
+    btn.className = "bottom__button";
+    btn.href = "#";
+    btn.classList.add("bottom__button--hide");
+    btn.appendChild(document.createTextNode("To The Top"));
+    document.body.appendChild(btn);
+
+    btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: 'smooth'
+        });
+    })
+    return btn;
+}
+
+function bottonInView(btn) {
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+        // console.log('bottom');
+        btn.classList.remove("bottom__button--hide");
+    } else {
+        btn.classList.add("bottom__button--hide");
+    }
+}
+
 /**
  * End Helper Functions
  * Begin Main Functions
@@ -109,6 +137,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Build menu 
     buildNavBar(nav_sections)
+    const btn = createBtn();
 
     // Scroll to section on link click
     navbar.addEventListener('click', function(e) {
@@ -124,7 +153,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Set sections as active
     window.addEventListener('scroll', function() {
-        sectionActive(nav_sections)
+        sectionActive(nav_sections);
+        bottonInView(btn);
     })
 
 })
