@@ -140,6 +140,7 @@ section {
 
 .bottom__button.hide {
     right: -10em;
+    opacity: 0%;
     transition: ease 0.7s all;
 }
 
