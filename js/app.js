@@ -42,9 +42,17 @@ function buildNavBar(sections) {
     }
 }
 
-for (const section of nav_sections) {
-    console.log(section.getAttribute('data-nav'));
+function scrollToSection(section) {
+    window.scrollTo({
+        top: section.offsetTop,
+        left: section.offsetLeft,
+        behavior: 'smooth'
+    })
 }
+
+// for (const section of nav_sections) {
+//     console.log(section.getAttribute('id'));
+// }
 
 /**
  * End Helper Functions
@@ -73,5 +81,14 @@ buildNavBar(nav_sections)
 // Build menu 
 
 // Scroll to section on link click
+navbar.addEventListener('click', function(e) {
+    if (e.target.nodeName === "A") {
+        e.preventDefault();
 
+        const link = e.target.getAttribute('href');
+        const s = document.querySelector(link);
+
+        scrollToSection(s);
+    }
+});
 // Set sections as active
