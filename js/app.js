@@ -27,12 +27,16 @@ const navbar = document.querySelector('#navbar__list');
  * 
  */
 
-function scrollToSection(section) {
-    window.scrollTo({
-        top: section.offsetTop,
-        left: section.offsetLeft,
-        behavior: 'smooth'
-    })
+function sectionInView(section) {
+    let bounding = section.getBoundingClientRect();
+    // console.log(bounding);
+    return (
+        // get the top but a fifth lower
+        (bounding.height / 5 + bounding.top) >= 0 &&
+        // the the bottom but two fifths higher
+        (bounding.bottom - bounding.height * 3 / 5) <=
+        (window.innerHeight || document.documentElement.clientHeight)
+    );
 }
 
 /**
@@ -59,16 +63,37 @@ function buildNavBar(sections) {
     }
 }
 
-
-
-
 // Add class 'active' to section when near top of viewport
+function sectionActive(sections) {
+    for (const section of sections) {
+        const active = section.getAttribute('id');
+        // console.log(active);
+        const navActive = document.querySelector(`#navbar__list li a[href="#${active}"]`)
+            // const b = document.querySelector(`a[href="#${active}"]`);
+            // console.log(navActive);
 
+        // let b = navbar.getElementsByTagName('menu__link');
 
+        if (sectionInView(section)) {
+            console.log(`${section.getAttribute('data-nav')} is in view!`)
+            section.classList.add("your-active-class");
+            navActive.classList.add("menu__link--active");
+        } else {
+            section.classList.remove("your-active-class");
+            navActive.classList.remove("menu__link--active");
+        }
+    }
 
+}
 
 // Scroll to anchor ID using scrollTO event
-
+function scrollToSection(section) {
+    window.scrollTo({
+        top: section.offsetTop,
+        left: section.offsetLeft,
+        behavior: 'smooth'
+    })
+}
 
 /**
  * End Main Functions
@@ -82,7 +107,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Build menu 
     buildNavBar(nav_sections)
 
-
     // Scroll to section on link click
     navbar.addEventListener('click', function(e) {
         if (e.target.nodeName === "A") {
@@ -94,6 +118,9 @@ document.addEventListener('DOMContentLoaded', function() {
             scrollToSection(s);
         }
     });
-    // Set sections as active
 
+    // Set sections as active
+    window.addEventListener('scroll', function() {
+        sectionActive(nav_sections)
+    })
 })
