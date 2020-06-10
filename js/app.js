@@ -29,7 +29,6 @@ const navbar = document.querySelector('#navbar__list');
 
 function sectionInView(section) {
     let bounding = section.getBoundingClientRect();
-    // console.log(bounding);
     if (window.scrollY <= 100) {
         return false;
     }
@@ -44,9 +43,8 @@ function sectionInView(section) {
 
 function createBtn() {
     const btn = document.createElement('a');
-    btn.className = "bottom__button";
+    btn.className = "bottom__button hide";
     btn.href = "#";
-    btn.classList.add("bottom__button--hide");
     btn.appendChild(document.createTextNode("To The Top"));
     document.body.appendChild(btn);
 
@@ -64,9 +62,9 @@ function createBtn() {
 function bottonInView(btn) {
     if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
         // console.log('bottom');
-        btn.classList.remove("bottom__button--hide");
+        btn.classList.remove("hide");
     } else {
-        btn.classList.add("bottom__button--hide");
+        btn.classList.add("hide");
     }
 }
 
@@ -98,15 +96,9 @@ function buildNavBar(sections) {
 function sectionActive(sections) {
     for (const section of sections) {
         const active = section.getAttribute('id');
-        // console.log(active);
         const navActive = document.querySelector(`#navbar__list li a[href="#${active}"]`)
-            // const b = document.querySelector(`a[href="#${active}"]`);
-            // console.log(navActive);
-
-        // let b = navbar.getElementsByTagName('menu__link');
 
         if (sectionInView(section)) {
-            // console.log(`${section.getAttribute('data-nav')} is in view!`)
             section.classList.add("your-active-class");
             navActive.classList.add("menu__link--active");
         } else {
@@ -133,8 +125,6 @@ function scrollToSection(section) {
  */
 
 document.addEventListener('DOMContentLoaded', function() {
-    // console.log('DOM loaded');
-
     // Build menu 
     buildNavBar(nav_sections)
     const btn = createBtn();

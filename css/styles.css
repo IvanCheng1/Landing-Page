@@ -135,12 +135,12 @@ section {
     background: rgb(24, 45, 35);
     padding: 1em;
     border-radius: 10px;
-    transition: ease 0.5s all;
+    transition: ease 0.7s all;
 }
 
-.bottom__button--hide {
-    display: none;
-    transition: ease 0.5s all;
+.bottom__button.hide {
+    right: -10em;
+    transition: ease 0.7s all;
 }
 
 
