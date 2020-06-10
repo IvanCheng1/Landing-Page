@@ -30,6 +30,9 @@ const navbar = document.querySelector('#navbar__list');
 function sectionInView(section) {
     let bounding = section.getBoundingClientRect();
     // console.log(bounding);
+    if (window.scrollY <= 100) {
+        return false;
+    }
     return (
         // get the top but a fifth lower
         (bounding.height / 5 + bounding.top) >= 0 &&
@@ -75,7 +78,7 @@ function sectionActive(sections) {
         // let b = navbar.getElementsByTagName('menu__link');
 
         if (sectionInView(section)) {
-            console.log(`${section.getAttribute('data-nav')} is in view!`)
+            // console.log(`${section.getAttribute('data-nav')} is in view!`)
             section.classList.add("your-active-class");
             navActive.classList.add("menu__link--active");
         } else {
@@ -102,7 +105,7 @@ function scrollToSection(section) {
  */
 
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM loaded');
+    // console.log('DOM loaded');
 
     // Build menu 
     buildNavBar(nav_sections)
@@ -123,4 +126,5 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('scroll', function() {
         sectionActive(nav_sections)
     })
+
 })
