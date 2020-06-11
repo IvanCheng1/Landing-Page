@@ -22,22 +22,21 @@ const nav_sections = document.getElementsByTagName('section')
 const navbar = document.querySelector('#navbar__list');
 
 /**
- * End Global Variables
+ * End Global Variables 
  * Start Helper Functions
  * 
  */
 
 function sectionInView(section) {
     let bounding = section.getBoundingClientRect();
+    let offset = bounding.height * 0.3;
     if (window.scrollY <= 100) {
         return false;
     }
     return (
-        // get the top but a fifth lower
-        (bounding.height / 5 + bounding.top) >= 0 &&
-        // the the bottom but two fifths higher
-        (bounding.bottom - bounding.height * 3 / 5) <=
-        (window.innerHeight || document.documentElement.clientHeight)
+        bounding.top + offset <=
+        (window.innerHeight || document.documentElement.clientHeight) &&
+        bounding.bottom - offset >= 0
     );
 }
 
@@ -60,7 +59,8 @@ function createBtn() {
 }
 
 function bottonInView(btn) {
-    if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+    // scroll to top button shows up when reached last 5%
+    if (window.innerHeight + window.scrollY >= 0.95 * document.body.offsetHeight) {
         // console.log('bottom');
         btn.classList.remove("hide");
     } else {
